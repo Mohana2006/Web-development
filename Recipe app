@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe App</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf6e3;
+            color: #333;
+        }
+        header {
+            background-color: #f3a39c;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #f3a39c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #f3a39c;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f3a39c;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 15px;
+            background: #fff3f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Delicious Recipes</h1>
+        <nav>
+            <a onclick="showPage('home')">Home</a>
+            <a onclick="showPage('recipes')">Recipes</a>
+            <a onclick="showPage('feedback')">Feedback</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Homepage -->
+        <div id="home">
+            <h2>Welcome to Delicious Recipes!</h2>
+            <p>Discover tasty recipes from around the world. Click below to explore our recipes.</p>
+            <button onclick="showPage('recipes')">View Recipes</button>
+        </div>
+
+        <!-- Recipes Page -->
+        <div id="recipes" class="hidden">
+            <h2>Our Recipes</h2>
+            <ul id="recipeList"></ul>
+        </div>
+
+        <!-- Feedback Page -->
+        <div id="feedback" class="hidden">
+            <h2>We Value Your Feedback!</h2>
+            <form id="feedbackForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" rows="5" required></textarea>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Recipe App
+    </footer>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            const pages = ['home', 'recipes', 'feedback'];
+            pages.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        // Recipes List
+        const recipes = [
+            { name: "Spaghetti Bolognese", ingredients: ["Spaghetti", "Tomato", "Beef"], time: "30 mins" },
+            { name: "Chicken Curry", ingredients: ["Chicken", "Curry Powder", "Onion"], time: "40 mins" },
+            { name: "Veggie Salad", ingredients: ["Lettuce", "Tomato", "Cucumber"], time: "10 mins" }
+        ];
+
+        const recipeList = document.getElementById("recipeList");
+        recipes.forEach(recipe => {
+            const li = document.createElement("li");
+            li.innerHTML = `<strong>${recipe.name}</strong> - ${recipe.time}<br>Ingredients: ${recipe.ingredients.join(", ")}`;
+            recipeList.appendChild(li);
+        });
+
+        // Feedback Form
+        const feedbackForm = document.getElementById("feedbackForm");
+        feedbackForm.addEventListener("submit", function(e){
+            e.preventDefault();
+            alert("Thank you for your feedback, " + document.getElementById("name").value + "!");
+            feedbackForm.reset();
+            showPage('home');
+        });
+    </script>
+</body>
+</html
